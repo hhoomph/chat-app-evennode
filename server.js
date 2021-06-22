@@ -9,17 +9,11 @@ const mongoClient = require("mongodb").MongoClient;
 const dbname = "chatApp";
 const chatCollection = "chats"; //collection to store all chats
 const userCollection = "onlineUsers"; //collection to maintain list of currently online users
-const port = 5000;
+const port = process.env.PORT;
 const database = process.env.mongoUrl;
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server, {
-  cors: {
-    origin: "http://localhost:5000",
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-});
+const io = socketio(server);
 // server css as static
 app.use(express.static(__dirname));
 // initialize body-parser to parse incoming parameters requests to req.body
